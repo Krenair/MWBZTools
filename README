@@ -1,0 +1,16 @@
+Both of these tools expect you to have something like this in your .ssh/config:
+	Host gerrit.wikimedia.org
+	User krenair
+
+They both expects the arguments to be a Gerrit query. E.g. "status:merged owner:krenair NOT age:7d"
+
+MergedChecker.py:
+	Use this to find bugs in bugzilla which have merged changesets in Gerrit.
+	I tend to use a query like 'status:merged NOT age:7d' to only search for changesets which have been updated less than a week ago.
+
+BugGerritChangeFinder.py:
+	Use this to find gerrit changesets related to a certain bug. You can pipe the output to grep to find a certain bug number, e.g.:
+		alex@alex:~/Git/WMBZTools (master)$ python BugGerritChangeFinder.py | grep 44099
+		29788 https://gerrit.wikimedia.org/r/44099
+		44099 https://gerrit.wikimedia.org/r/44593
+	And then Ctrl+C when you've found what you're looking for.
